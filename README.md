@@ -13,8 +13,8 @@ with a light splash screen that displays until initial required application data
 - *Sonner*: sonner to display toast notifications
 
 ## Implementation
-- [] A Splash Screen that displays until initial required application data is fetched from polygon.io
+- [ ] A Splash Screen that displays until initial required application data is fetched from polygon.io
 - [x] Explore page with search input, and tickers list, infinite scrolling.
-- [] Tickers backend search.
-- [] Toaster for notifing user with request errors, progressing requests and any other notifications may be needed.
-- [] Unit tests.
+- [ ] Tickers backend search.
+- [ ] Toaster for notifing user with request errors, progressing requests and any other notifications may be needed.
+- [ ] Unit tests.
