@@ -15,6 +15,12 @@ with a light splash screen that displays until initial required application data
 ## Implementation
 - [ ] A Splash Screen that displays until initial required application data is fetched from polygon.io
 - [x] Explore page with search input, and tickers list, infinite scrolling.
-- [ ] Tickers backend search.
-- [ ] Toaster for notifing user with request errors, progressing requests and any other notifications may be needed.
+- [x] Tickers backend search.
+- [x] Toaster for notifing user with request errors, progressing requests and any other notifications may be needed.
 - [ ] Unit tests.
+
+## I thought about Offline cache layer.
+- While playing around with this task, I thought about creating offline cache layer that I fallback to in case of API unavailablity
+for that I used PGLite to create a local database, due to time constraint I couldn't proceed with that.
+- while displaying splash screen I will attempt to call API for a prefetch, if anything goes wrong, I will fallback to this offline database,
+-
