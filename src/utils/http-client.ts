@@ -8,4 +8,10 @@ const httpClient = axios.create({
 		headers: {'Authorization': `Bearer ${API_TOKEN}`}
 	});
 
+// httpClient.interceptors.response.use(
+// 	(response) => response,
+// 	async (error) => {
+// 		return Promise.reject(error);
+// 	}
+// )
 export default httpClient
