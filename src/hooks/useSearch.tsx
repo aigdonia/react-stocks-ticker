@@ -3,7 +3,7 @@ import { createContext, PropsWithChildren, useContext, useState } from "react";
 const SearchContext = createContext({
 	query: "",
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	setQuery: (str: string) => {},
+	setQuery: (_str: string) => {},
 });
 
 export const SearchProvider = ({ children }: PropsWithChildren ) => {
