@@ -1,30 +1,41 @@
 import { TooltipProvider } from "@radix-ui/react-tooltip";
-import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { getTickers } from "../services/stocks";
 import { TickersList } from "../components/ticker-list";
-import { toast } from "sonner";
+import { useQuery } from "@tanstack/react-query";
+import { SearchInput } from "../components/search-input";
+import { useSearch } from "../hooks/useSearch";
+
+function useQueryTickers(searchTicker = "") {
+	return useQuery({
+		queryKey: ["tickers", searchTicker],
+		queryFn: () => getTickers(searchTicker),
+		enabled: !!searchTicker || searchTicker === "", // Prevent unnecessary fetch
+	});
+}
 
 export function ExplorePage() {
+	const { query } = useSearch();
+	const { data: tickers, isLoading, isError } = useQueryTickers(query)
 
-	const { data: tickers, isLoading, isError } = useQuery({
-		queryKey: ["tickers"],
-		queryFn: getTickers,
-		throwOnError(error) {
-			toast.error("Error While Fetching Tickers", {
-				description: error.response.data.error
-			})
-		},
-	});
 
 	return (
-		<TooltipProvider>
-			<div className="flex items-center justify-center py-4 ">
-				<input className="text-xl border border-sky-100 px-2 rounded-md w-full mx-3 md:w-[80%] lg:w-[50%]" placeholder="Search..." />
-			</div>
-			{isError && <div className="flex items-center justify-center h-[50vh]">
-				<div>There was an error</div>
-			</div>}
-			{tickers && <TickersList tickers={tickers} />}
-		</TooltipProvider>
+		<>
+			<SearchInput />
+			<TooltipProvider>
+				{isLoading && <div className="flex flex-col items-center justify-center h-[50vh]">
+					<div>Loading Markets Data ...</div>
+				</div>}
+				{isError && <div className="flex flex-col items-center justify-center h-[50vh] space-y-4">
+					<div className="text-xl font-bold text-red-700">Ouch!</div>
+					<div>There was an error while fetching markets data</div>
+					<a onClick={() => window.location.reload()} className="border border-spacing-1 text-sm px-2 py-1 rounded-md cursor-pointer">Refresh Page</a>
+				</div>}
+				{tickers && tickers.length <= 0 && <div className="flex flex-col items-center justify-center h-[50vh] space-y-4">
+					<div className="text-xl font-bold text-red-700">Ouch!</div>
+					<div>We couldn't find any tickers matching your search for <b>{query}</b></div>
+				</div>}
+				{tickers && tickers.length && <TickersList tickers={tickers} />}
+			</TooltipProvider>
+		</>
 	);
 }
