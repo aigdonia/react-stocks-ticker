@@ -1,17 +1,12 @@
 import axios from "axios";
 
-const API_TOKEN = 'kXZveXLl7W4xwmkpiQmmpaA3pBsDtjRy'; //TODO: fetch from config
+const API_TOKEN = import.meta.env.VITE_API_KEY;
+const baseURL = import.meta.env.VITE_API_URL;
 
 const httpClient = axios.create({
-		baseURL: 'https://api.polygon.io/v3/',
+		baseURL,
 		timeout: 1000,
 		headers: {'Authorization': `Bearer ${API_TOKEN}`}
 	});
 
-// httpClient.interceptors.response.use(
-// 	(response) => response,
-// 	async (error) => {
-// 		return Promise.reject(error);
-// 	}
-// )
 export default httpClient
