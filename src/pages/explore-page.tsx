@@ -1,17 +1,8 @@
 import { TooltipProvider } from "@radix-ui/react-tooltip";
-import { getTickers } from "../services/stocks";
 import { TickersList } from "../components/ticker-list";
-import { useQuery } from "@tanstack/react-query";
 import { SearchInput } from "../components/search-input";
 import { useSearch } from "../hooks/useSearch";
-
-function useQueryTickers(searchTicker = "") {
-	return useQuery({
-		queryKey: ["tickers", searchTicker],
-		queryFn: () => getTickers(searchTicker),
-		enabled: !!searchTicker || searchTicker === "", // Prevent unnecessary fetch
-	});
-}
+import { useQueryTickers } from "../hooks/useQueryTickers";
 
 export function ExplorePage() {
 	const { query } = useSearch();
